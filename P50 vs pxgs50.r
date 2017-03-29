@@ -19,7 +19,7 @@ points(subset(dataS3, k==0.05 & MAP==1825 & pkx==0.5 & h3==100 & d<=10, select=c
 points(subset(dataS3, pkx==0.25 & d<=10, select=c("P50", "pxgs50")), type="l", lwd=1, col=Cols[5])
 points(subset(dataS3, pkx==0.75 & d<=10, select=c("P50", "pxgs50")), type="l", lwd=4, col=Cols[5])
 
-curve(0.49*x-0.42, -7, -1, lty=3, add=T)
+curve(0.49*x-0.42, -7, -1, lty=3, add=T, lwd=8)
 
 axis(1, xlim=c(-10, 0), pos=-10, lwd=2)
 mtext(expression(psi[x50]~(MPa)),side=1,line=2.4, cex=1.3)
