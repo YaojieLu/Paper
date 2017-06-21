@@ -1,8 +1,11 @@
 
+source("Functions.r")
+
 # Data
 dataS1 <- read.csv("Data/Scenario 1.csv")
 dataS2 <- read.csv("Data/Scenario 2.csv")
 dataS3 <- read.csv("Data/Scenario 3.csv")
+dataS2$pxL <- psf(dataS2$optwL)
 datao <- read.csv("Data/Choat2012.csv")
 dataAng <- subset(datao, Type=="Angiosperm", select=c("Psi50", "Psimin"))
 dataAng <- dataAng[order(dataAng$Psi50), ]
@@ -31,20 +34,20 @@ lines(dataGym$Psi50, predict(fitGym), col=Cols[2])
 
 points(subset(dataS1, h3==25, select=c("P50", "pxmin")), type="l", col=Cols[3])
 #points(subset(dataS1, h3==100, select=c("P50", "pxmin")), type="l", lty=2, col=Cols[3])
-points(subset(dataS2, k==0.05 & MAP==1825 & pkx==0.5 & h3==25, select=c("P50", "pxmin")), type="l", col=Cols[4])
-points(subset(dataS2, k==0.05 & MAP==1825 & pkx==0.5 & h3==100, select=c("P50", "pxmin")), type="l", lty=2, col=Cols[4])
-points(subset(dataS2, pkx==0.25, select=c("P50", "pxmin")), type="l", lwd=1, col=Cols[4])
-points(subset(dataS2, pkx==0.75, select=c("P50", "pxmin")), type="l", lwd=4, col=Cols[4])
+points(subset(dataS2, k==0.05 & MAP==1825 & pkx==0.5 & h3==25, select=c("P50", "pxL")), type="l", col=Cols[4])
+points(subset(dataS2, k==0.05 & MAP==1825 & pkx==0.5 & h3==100, select=c("P50", "pxL")), type="l", lty=2, col=Cols[4])
+points(subset(dataS2, pkx==0.25, select=c("P50", "pxL")), type="l", lwd=1, col=Cols[4])
+points(subset(dataS2, pkx==0.75, select=c("P50", "pxL")), type="l", lwd=4, col=Cols[4])
 points(subset(dataS3, k==0.05 & MAP==1825, select=c("P50", "pxmin")), type="l", col=Cols[5])
 
 axis(1, xlim=c(-15, 0), pos=-15, lwd=2, at=c(-15, -10, -5, 0))
 mtext(expression(psi[x50]~(MPa)),side=1,line=2.4, cex=1.3)
 axis(2, ylim=c(-15, 0), pos=-15, lwd=2, at=c(-15, -10, -5, 0))
-mtext(expression(psi[xmin]~(MPa)),side=2,line=1.8, cex=1.3)
+mtext(expression(psi[xL]~(MPa)),side=2,line=1.8, cex=1.3)
 abline(a=0, b=1, lwd=1, lty=3)
 legend("topleft", title=expression(Choat~italic(et~al.)~2012), c("Angiosperm", "Gymnosperm"), pch=c(1, 2), lty=c(1, 1), col=Cols[1:2])
 legend("bottomleft", legend=c("I", "II", "III"), title="Scenario", lty=c(1), col=Cols[3:5], bg="white")
 legend("bottom", legend=c("25", "100"), title=expression(beta), lty=c(1, 2), col=Cols[4])
 legend("bottomright", legend=c("25%", "50%", "75%"), title=expression(italic(p[k[x]])), lty=1, lwd=c(1, 2, 4), col=Cols[4])
 
-dev.copy2pdf(file = "Figures/P50 vs pxmin.pdf")
+dev.copy2pdf(file = "Figures/P50 vs pxL.pdf")
